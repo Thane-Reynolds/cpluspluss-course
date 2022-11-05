@@ -1,0 +1,24 @@
+P07 û Your Name
+
+Enter a value between $5 and $15.00 for the price: 10
+
+Enter a value between 1 and 50 for the quantity: 10
+
+Price:  10.00
+Quantity:       -858993460
+Subtotal:       -8589934600.00
+Sales Tax:      -429496730.00 at 0.05
+Shipping:       10.00
+Total Due:      -9019431320.00
+
+Thank you!
+
+
+D:\projects\courses\c++-course\assignments\module6\P06D\x64\Debug\P06D.exe (process 24560) exited with code 0.
+Press any key to close this window . . .
+
+
+A void function does not return the value. Call by reference or pointer would need to be used with a void function 
+so that the variable is not local. In this example, there is no way for quantity to leave the function and go back
+to main. We can change it to call by refence, or make a pointer. Alternatively, we can change this to an int function
+and return quantity.

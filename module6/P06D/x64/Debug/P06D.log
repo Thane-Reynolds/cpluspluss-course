@@ -1,0 +1,3 @@
+﻿  P06D.cpp
+D:\projects\courses\c++-course\assignments\module6\P06D\P06D.cpp(21,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  P06D.vcxproj -> D:\projects\courses\c++-course\assignments\module6\P06D\x64\Debug\P06D.exe
