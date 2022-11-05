@@ -7,6 +7,7 @@
 */
 #include <fstream>  // file processing
 #include <iostream> // cin and cout
+#include <iomanip> // setw
 
 using namespace std;
 
@@ -46,11 +47,11 @@ int main()
     //check to see what the user wants to do
     do  // while (choice != 'X')
     {
-        cout << "P08   Your Name Here   \n\n";
+        cout << "P08   Thane Reynolds   \n\n";
 
         cout << "Enter the letter of the desired menu option. \n"
             << "Press the Enter key after entering the letter. \n \n"
-
+            //<< numberOfEmps << endl //used for debugging while having an issue loading array
             << "  A: Display Employee Id (current order) \n"
             << "  B: Display Employee Id Ascending Order \n"
             << "  C: Display Employee Id Descending Order \n"
@@ -114,16 +115,19 @@ void loadArray()
     inputFile.open("P08.txt");
     if (inputFile.fail())
     {
-        cout << "File opening failed";
+        cout << "File opening failed" << endl;
+        numberOfEmps = 0;
+        return;
     }
     //Declare index and initialize to zero for first array element
     int  i = 0;
 
     //Read the first record into array 
     inputFile >> employeeId[i];
+
     //Use while loop to process file, because 
     //  while loops handle empty files.
-    while (!inputFile.eof())
+    while (! inputFile.eof())
     {
     //  increment counter, i++;
         i++;
@@ -136,6 +140,7 @@ void loadArray()
         else
             break;
     //end while loop
+    }
 
     //Close the file
         inputFile.close();
@@ -143,7 +148,6 @@ void loadArray()
     numberOfEmps = i + 1;
 
     return;
-    }
 }
 
 
@@ -154,9 +158,21 @@ void sortArrayAscending()
     //Students need to code for-loop to sort employeeId in ascending order
     for (int i = 0; i < numberOfEmps; i++) 
     {
-        
+        minIndex = i;
+        minValue = employeeId[i];
+        // find lowest value
+        for (int i2 = i + 1; i2 < numberOfEmps; i2++)
+        {
+            if (employeeId[i2] < minValue)
+            {
+                minIndex = i2;
+                minValue = employeeId[i2]; // if smaller, now sets the compared to the min value
+            }
+            holdValue = employeeId[i];
+            employeeId[i] = employeeId[minIndex];
+            employeeId[minIndex] = holdValue;
+        }
     }
-
     return;
 }
 
@@ -168,7 +184,23 @@ void sortArrayDescending()
     int maxIndex, maxValue, holdValue;
 
     //Students need to code for-loop to sort employeeId in descending order 
-
+    for (int i = 0; i < numberOfEmps; i++)
+    {
+        maxIndex = i;
+        maxValue = employeeId[i];
+        // find highest value
+        for (int i2 = i + 1; i2 < numberOfEmps; i2++)
+        {
+            if (employeeId[i2] > maxValue)
+            {
+                maxIndex = i2;
+                maxValue = employeeId[i2]; // if larger, now sets the compared to the max value
+            }
+            holdValue = employeeId[i];
+            employeeId[i] = employeeId[maxIndex];
+            employeeId[maxIndex] = holdValue;
+        }
+    }
     return;
 }
 
@@ -212,6 +244,25 @@ void searchArray()
 
     //Students need to code for-loop to search employeeId 
     //  include early exit logic
+    for (int i = 0; i < numberOfEmps; i++)
+    {
+        if (searchId == employeeId[i])
+        {
+            numberFound = true;
+            cout << "\n" << searchId << "is stored in array position " << i + 1
+                << " and is referenced with an index value of " << i << endl;
+            break; // ending as it has been found
+        }
+        else if (searchId < employeeId[i])
+        {
+            cout << "\nEarly exit...";
+            break; // no point in continuing to search as we sorted in ascending prior to searching
+        }
+    }
+    if (!numberFound)
+    {
+        cout << searchId << " is not on the list." << endl;
+    }
 
     return;
 }
